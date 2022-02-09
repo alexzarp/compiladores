@@ -1,5 +1,3 @@
-import csv
-
 def generate_csv(afd):
     arq = open('saida.csv', 'w')
 
@@ -22,7 +20,32 @@ for i in arq:
     string[-1] = string[-1].replace("\n", '')
     afd.append(string)
 
-arq = open("entrada.csv", "r")
+fita_saida = []
+arq = open("entrada_linguagem.txt", "r")
 arq = arq.readlines()
-estados = []
 
+def encontraColuna(afd, terminal):
+    return afd[0].index(terminal)
+
+def encontraLinha(afd, naoTerminal):
+    naoTerminal = afd[1][naoTerminal]
+    #print(naoTerminal)
+    for linha in range(len(afd)):
+        if afd[linha][0] == naoTerminal:
+            return linha
+
+# loop sob o arquivo do programador
+index = 0
+coluna = 0
+linha = 0
+for i in arq:
+    for j in i:
+        if j == " " or j == "\n":
+            fita_saida.append(afd[linha][0])
+            continue
+        coluna = encontraColuna(afd, j)
+        linha = encontraLinha(afd, coluna)
+        
+    
+
+print(fita_saida)

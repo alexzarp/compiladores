@@ -2,7 +2,3 @@ if ai then
     if i > o then
         ai = i
 endif
-
-else then
-    au = i
-endelse

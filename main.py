@@ -1,5 +1,5 @@
 def generate_csv(afd):
-    arq = open('saida.csv', 'w')
+    arq = open('output.csv', 'w')
 
     for i in range(len(afd)):
         for j in range(len(afd[i])):
@@ -23,26 +23,28 @@ for i in arq:
 fita_saida = []
 arq = open("entrada_linguagem.txt", "r")
 arq = arq.readlines()
+if arq[-1][-1] != "\n":
+    arq[-1] += "\n"
 lista_tokens = []
+linha_tokens = []
+linha = 0
 position_tokens = []
 for lines in arq:
     for char in range(len(lines)):
-        print(lines[char])
         if lines[char] == " " or lines[char] == "\n" or lines[char] == "\t":
             palavra = ""
-            print("entrou")
-            
             for letra in position_tokens:
                 palavra += lines[letra]
-                print(palavra)
 
             if palavra == '':
                 continue
             lista_tokens.append(palavra)
+            linha_tokens.append(linha)
             position_tokens = []
             continue
         else:
             position_tokens.append(char)
+    linha += 1
 for tokens in range(len(lista_tokens)):
     lista_tokens[tokens] += " "
 print(lista_tokens)
@@ -71,6 +73,32 @@ for token in lista_tokens:
             continue
         coluna = encontraColuna(afd, caracter)
         linha = encontraLinha(afd, linha, coluna)
-        
 
 print(fita_saida)
+
+token = ""
+count = 0
+max = ["", 0]
+for nterminais in range(len(afd)):
+    token = afd[nterminais][0]
+    if "*" in token:
+        count = afd[nterminais].count(token)
+        token.replace("*", "")
+        count += afd[nterminais].count(token)
+        token = "*" + token
+    else:
+        count = afd[nterminais].count(token)
+    
+    if count > max[1]:
+        max = [token, count]
+
+state_error = max[0]
+for token in range(len(fita_saida)):
+    if "*" not in fita_saida[token]:
+        fita_saida[token] = state_error
+fita_saida.append("$")
+print(fita_saida)
+
+for error in range(len(fita_saida)):
+    if fita_saida[error] == state_error:
+        print("Erro na cadeia", "\"" + lista_tokens[error].replace(" ", "") + "\"","(" + fita_saida[error] + ")", "na linha", linha_tokens[error],"do arquivo de entrada.")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

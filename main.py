@@ -74,8 +74,6 @@ for token in lista_tokens:
         coluna = encontraColuna(afd, caracter)
         linha = encontraLinha(afd, linha, coluna)
 
-print(fita_saida)
-
 token = ""
 count = 0
 max = ["", 0]
@@ -101,4 +99,9 @@ print(fita_saida)
 
 for error in range(len(fita_saida)):
     if fita_saida[error] == state_error:
-        print("Erro na cadeia", "\"" + lista_tokens[error].replace(" ", "") + "\"","(" + fita_saida[error] + ")", "na linha", linha_tokens[error],"do arquivo de entrada.")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        print("Erro na cadeia", "\"" + lista_tokens[error].replace(" ", "") + "\"","(" + fita_saida[error] + ")", "na linha", linha_tokens[error],"do arquivo de entrada.")
+
+arq = open("tableSLR.csv", "r")
+arq = arq.readlines()
+print(lista_tokens.count())
+print(fita_saida.count())

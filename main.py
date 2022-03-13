@@ -103,5 +103,34 @@ for error in range(len(fita_saida)):
 
 arq = open("tableSLR.csv", "r")
 arq = arq.readlines()
-print(lista_tokens.count())
-print(fita_saida.count())
+
+lista_tokens_SLR = []
+position_tokens = []
+for char in arq[0]:
+    if char == "$":
+        break
+
+    if char == ",":
+        palavra = ""
+        for letra in position_tokens:
+            palavra += letra
+        position_tokens = []
+        lista_tokens_SLR.append(palavra)
+    else:
+        position_tokens.append(char)
+
+for token in range(len(lista_tokens)):
+    lista_tokens[token] = lista_tokens[token].replace(" ", "")
+position_tokens = []
+for token in lista_tokens_SLR:
+    if token in lista_tokens:
+        index = lista_tokens.index(token)
+        position_tokens.append(index)
+count = 0
+for index in position_tokens:
+    lista_tokens_SLR[count] = fita_saida[index]
+    count+=1
+
+print(fita_saida)
+print(lista_tokens)
+print(lista_tokens_SLR)

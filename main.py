@@ -109,7 +109,6 @@ position_tokens = []
 for char in arq[0]:
     if char == "$":
         break
-
     if char == ",":
         palavra = ""
         for letra in position_tokens:
@@ -126,10 +125,10 @@ for token in lista_tokens_SLR:
     if token in lista_tokens:
         index = lista_tokens.index(token)
         position_tokens.append(index)
-count = 0
+if lista_tokens_SLR[0] == "index":
+    lista_tokens_SLR.pop(0)
 for index in position_tokens:
-    lista_tokens_SLR[count] = fita_saida[index]
-    count+=1
+    lista_tokens_SLR[index] = fita_saida[index]
 
 print(fita_saida)
 print(lista_tokens)

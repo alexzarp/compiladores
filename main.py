@@ -74,6 +74,7 @@ for token in lista_tokens:
         coluna = encontraColuna(afd, caracter)
         linha = encontraLinha(afd, linha, coluna)
 
+lista_tokens.append('$')
 token = ""
 count = 0
 max = ["", 0]
@@ -142,3 +143,24 @@ for i in arq:
     string[-1] = string[-1].replace("\n", '')
     slr.append(string)
 # :D
+# for linha in range(len(slr)):
+#     if linha == 0:
+#         slr[linha].insert(0, -1)
+#     else:
+#         slr[linha].insert(0, linha-1)
+
+print(slr)
+for token in range (len(lista_tokens)):
+    lista_tokens[token] = lista_tokens[token].replace(' ', '')
+
+print(lista_tokens)
+pilha = ['0']
+
+for token in lista_tokens:
+    if token == "$":
+        print("Arquivo de entrada aceito e interpretado!")
+        break
+
+    for index in slr:
+        if index[0] == pilha[-1]:
+            

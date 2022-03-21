@@ -1,17 +1,10 @@
 if
-endif
+var
 else
-endelse
+compare
 while
-endwhile
+op
 then
-=
-==
->
-<
->=
-<=
-!=
 
 <S> ::= a<A> | e<A> | i<A> | i<A> | o<A> | u<A> | _<A>
 <A> ::= a<A> | e<A> | i<A> | i<A> | o<A> | u<A> | _<A> | ε

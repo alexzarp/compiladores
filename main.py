@@ -143,24 +143,53 @@ for i in arq:
     string[-1] = string[-1].replace("\n", '')
     slr.append(string)
 # :D
-# for linha in range(len(slr)):
-#     if linha == 0:
-#         slr[linha].insert(0, -1)
-#     else:
-#         slr[linha].insert(0, linha-1)
 
 print(slr)
 for token in range (len(lista_tokens)):
     lista_tokens[token] = lista_tokens[token].replace(' ', '')
 
+arq = open("reducoes.csv", "r")
+arq = arq.readlines()
+print(arq)
+reducoes = []
+string = ""
+for i in arq:
+    string = []
+    string = i.split(",")
+    string[-1] = string[-1].replace("\n", '')
+    reducoes.append(string)
+
 print(lista_tokens)
 pilha = ['0']
-
 for token in lista_tokens:
     if token == "$":
         print("Arquivo de entrada aceito e interpretado!")
         break
 
-    for index in slr:
-        if index[0] == pilha[-1]:
-            
+    try:
+        index = slr[0].index(token)
+    except:
+        print("\"" + token + "\"", "não é conhecido. Compilação terminou.")
+        break
+    transicao = slr[int(pilha[-1])+1][index]
+
+    if transicao == '':
+        continue
+
+    if transicao[0] == "s":
+        pilha.append(lista_tokens[0])
+        lista_tokens.pop(1)
+        pilha.append(transicao[1:-1] + transicao[-1])
+    
+    elif transicao[0] == "r":
+        for reduce in reducoes:
+            if reduce[0] == (transicao[1:-1] + transicao[-1]):
+                pilha.pop(-1)
+                pilha.pop(-1)
+                pilha.append(reduce[1])
+                _index = slr[0].index(pilha)
+                _transicao = slr[int(pilha[-1])+1][_index]
+                pilha.append(_transicao)
+                print(pilha)
+                break
+    print(pilha)

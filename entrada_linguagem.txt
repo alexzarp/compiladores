@@ -1,4 +1,2 @@
-if ai then
-    if i > o then
-        ai = i
-endif
+if then
+    if then

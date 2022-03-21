@@ -144,7 +144,7 @@ for i in arq:
     slr.append(string)
 # :D
 
-print(slr)
+# print(slr)
 for token in range (len(lista_tokens)):
     lista_tokens[token] = lista_tokens[token].replace(' ', '')
 
@@ -159,7 +159,11 @@ for i in arq:
     string[-1] = string[-1].replace("\n", '')
     reducoes.append(string)
 
-print(lista_tokens)
+print(reducoes)
+for reduce in range(len(reducoes)):
+    reducoes[reduce][1] = reducoes[reduce][1].split("->")
+print(reducoes)
+# print(lista_tokens)
 pilha = ['0']
 for token in lista_tokens:
     if token == "$":

@@ -139,17 +139,18 @@ print(reducoes)
 pilha = ['0']
 print(lista_tokens)
 print("====================")
-for token in lista_tokens:
+while (True):
     print(pilha)
+    token = lista_tokens[0]
     try:
         index = slr[0].index(token)
     except:
         print("\"" + token + "\"", "não é conhecido. Compilação terminou.")
         break
     transicao = slr[int(pilha[-1])+1][index]
-    # print(transicao)
+    print(transicao)
     print(token)
-    # print(lista_tokens)
+    print(lista_tokens)
     print("\n")
     if transicao == '':
         print("\"" + token + "\"", "caiu em local vazio da SLR, compilação terminada!")
@@ -175,5 +176,3 @@ for token in lista_tokens:
     elif transicao[0] == "a":
         print("Linguagem reconhecida e aceita!")
         break
-for token in lista_tokens:
-    print(token)

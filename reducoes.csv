@@ -1,13 +1,11 @@
-1,S->S
-2,S->if (OPL) then (A)
-3,S->while (OPL) then
-4,(D)
-5,A->op (A)
-6,A->op
-7,A->else then (D)
-8,A->(S)
-9,A->''
-10,D->(S)
-11,D->''
-12,OPL->var compare var
-13,OPL->var
+1,S->if OPL then A
+2,S->while OPL then D
+3,A->op A
+4,A->op
+5,A->else then D
+6,A->S
+7,A->ε
+8,D->S
+9,D->ε
+10,OPL->var compare var
+11,OPL->var

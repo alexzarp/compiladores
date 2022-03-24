@@ -47,7 +47,6 @@ for lines in arq:
     linha += 1
 for tokens in range(len(lista_tokens)):
     lista_tokens[tokens] += " "
-print(lista_tokens)
 
 def encontraColuna(afd, terminal):
     return afd[0].index(terminal)
@@ -96,7 +95,7 @@ for token in range(len(fita_saida)):
     if "*" not in fita_saida[token]:
         fita_saida[token] = state_error
 fita_saida.append("$")
-print(fita_saida)
+# print(fita_saida)
 
 for error in range(len(fita_saida)):
     if fita_saida[error] == state_error:
@@ -120,54 +119,61 @@ for token in range (len(lista_tokens)):
 
 arq = open("reducoes.csv", "r")
 arq = arq.readlines()
-print(arq)
 reducoes = []
 string = ""
 for i in arq:
     string = []
     string = i.split(",")
+    # string = i.split("->")
     string[-1] = string[-1].replace("\n", '')
     reducoes.append(string)
 
-print(reducoes)
 for reduce in range(len(reducoes)):
     reducoes[reduce][1] = reducoes[reduce][1].split("->")
+for reduce in range(len(reducoes)):
+    reducoes[reduce].append(reducoes[reduce][1][0])
+    reducoes[reduce].append(reducoes[reduce][1][1])
+    reducoes[reduce].pop(-3)
 print(reducoes)
-# print(lista_tokens)
-pilha = ['0']
-for token in lista_tokens:
-    if token == "$":
-        print("Arquivo de entrada aceito e interpretado!")
-        break
 
+pilha = ['0']
+print(lista_tokens)
+print("====================")
+for token in lista_tokens:
+    print(pilha)
     try:
         index = slr[0].index(token)
     except:
         print("\"" + token + "\"", "não é conhecido. Compilação terminou.")
         break
     transicao = slr[int(pilha[-1])+1][index]
-
+    # print(transicao)
+    print(token)
+    # print(lista_tokens)
+    print("\n")
     if transicao == '':
-        continue
+        print("\"" + token + "\"", "caiu em local vazio da SLR, compilação terminada!")
+        break
 
     if transicao[0] == "s":
         pilha.append(lista_tokens[0])
-        lista_tokens.pop(1)
+        lista_tokens.pop(0)
         pilha.append(transicao[1:-1] + transicao[-1])
     
     elif transicao[0] == "r":
         for reduce in reducoes:
             if reduce[0] == (transicao[1:-1] + transicao[-1]):
-                pilha.pop(-1)
-                pilha.pop(-1)
+                count = len(reduce[2].split(" ")) *2
+                for i in range(count):
+                    pilha.pop(-1)
                 pilha.append(reduce[1])
-                _index = slr[0].index(pilha)
-                _transicao = slr[int(pilha[-1])+1][_index]
-                pilha.append(_transicao)
-                print(pilha)
+                index = slr[0].index(pilha[-1])
+                empilhado = slr[int(pilha[-2])+1][index]
+                pilha.append(empilhado)
                 break
-    
+
     elif transicao[0] == "a":
         print("Linguagem reconhecida e aceita!")
         break
-    print(pilha)
+for token in lista_tokens:
+    print(token)

@@ -1,0 +1,6 @@
+if var compare var then
+    op
+else then
+    while var then
+        if var then
+            op

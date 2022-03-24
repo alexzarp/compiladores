@@ -91,8 +91,10 @@ for nterminais in range(len(afd)):
         max = [token, count]
 
 state_error = max[0]
+print(state_error, max[1])
 for token in range(len(fita_saida)):
-    if "*" not in fita_saida[token]:
+    # if "*" not in fita_saida[token]:
+    if state_error == fita_saida[token]:
         fita_saida[token] = state_error
 fita_saida.append("$")
 # print(fita_saida)
@@ -100,6 +102,8 @@ fita_saida.append("$")
 for error in range(len(fita_saida)):
     if fita_saida[error] == state_error:
         print("Erro na cadeia", "\"" + lista_tokens[error].replace(" ", "") + "\"","(" + fita_saida[error] + ")", "na linha", linha_tokens[error],"do arquivo de entrada.")
+    if (len(fita_saida) == error):
+        exit()
 
 arq = open("tableSLR.csv", "r")
 arq = arq.readlines()
@@ -134,13 +138,13 @@ for reduce in range(len(reducoes)):
     reducoes[reduce].append(reducoes[reduce][1][0])
     reducoes[reduce].append(reducoes[reduce][1][1])
     reducoes[reduce].pop(-3)
-print(reducoes)
+# print(reducoes)
 
 pilha = ['0']
-print(lista_tokens)
-print("====================")
+# print(lista_tokens)
+# print("====================")
 while (True):
-    print(pilha)
+    # print(pilha)
     token = lista_tokens[0]
     try:
         index = slr[0].index(token)
@@ -148,10 +152,10 @@ while (True):
         print("\"" + token + "\"", "não é conhecido. Compilação terminou.")
         break
     transicao = slr[int(pilha[-1])+1][index]
-    print(transicao)
-    print(token)
-    print(lista_tokens)
-    print("\n")
+    # print(transicao)
+    # print(token)
+    # print(lista_tokens)
+    # print("\n")
     if transicao == '':
         print("\"" + token + "\"", "caiu em local vazio da SLR, compilação terminada!")
         break
@@ -176,3 +180,4 @@ while (True):
     elif transicao[0] == "a":
         print("Linguagem reconhecida e aceita!")
         break
+print(fita_saida)

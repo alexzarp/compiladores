@@ -81,7 +81,7 @@ for nterminais in range(len(afd)):
     token = afd[nterminais][0]
     if "*" in token:
         count = afd[nterminais].count(token)
-        token.replace("*", "")
+        token = token.replace("*", "")
         count += afd[nterminais].count(token)
         token = "*" + token
     else:
@@ -91,13 +91,11 @@ for nterminais in range(len(afd)):
         max = [token, count]
 
 state_error = max[0]
-print(state_error, max[1])
 for token in range(len(fita_saida)):
     # if "*" not in fita_saida[token]:
     if state_error == fita_saida[token]:
         fita_saida[token] = state_error
 fita_saida.append("$")
-# print(fita_saida)
 
 for error in range(len(fita_saida)):
     if fita_saida[error] == state_error:
@@ -117,7 +115,6 @@ for i in arq:
     slr.append(string)
 # :D
 
-# print(slr)
 for token in range (len(lista_tokens)):
     lista_tokens[token] = lista_tokens[token].replace(' ', '')
 
@@ -128,7 +125,6 @@ string = ""
 for i in arq:
     string = []
     string = i.split(",")
-    # string = i.split("->")
     string[-1] = string[-1].replace("\n", '')
     reducoes.append(string)
 
@@ -138,11 +134,8 @@ for reduce in range(len(reducoes)):
     reducoes[reduce].append(reducoes[reduce][1][0])
     reducoes[reduce].append(reducoes[reduce][1][1])
     reducoes[reduce].pop(-3)
-# print(reducoes)
 
 pilha = ['0']
-# print(lista_tokens)
-# print("====================")
 while (True):
     # print(pilha)
     token = lista_tokens[0]
@@ -180,4 +173,3 @@ while (True):
     elif transicao[0] == "a":
         print("Linguagem reconhecida e aceita!")
         break
-print(fita_saida)

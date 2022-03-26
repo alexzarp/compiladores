@@ -100,7 +100,7 @@ fita_saida.append("$")
 flag = False
 for error in range(len(fita_saida)):
     if fita_saida[error] == state_error:
-        print("Erro na cadeia", "\"" + lista_tokens[error].replace(" ", "") + "\"","(" + fita_saida[error] + ")", "na linha", linha_tokens[error],"do arquivo de entrada.")
+        print("Erro na cadeia", "\"" + lista_tokens[error].replace(" ", "") + "\"","(" + fita_saida[error] + ")", "na linha", linha_tokens[error]+1,"do arquivo de entrada.")
         flag = True
 if flag:
     exit()

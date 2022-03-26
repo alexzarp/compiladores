@@ -97,11 +97,13 @@ for token in range(len(fita_saida)):
         fita_saida[token] = state_error
 fita_saida.append("$")
 
+flag = False
 for error in range(len(fita_saida)):
     if fita_saida[error] == state_error:
         print("Erro na cadeia", "\"" + lista_tokens[error].replace(" ", "") + "\"","(" + fita_saida[error] + ")", "na linha", linha_tokens[error],"do arquivo de entrada.")
-    if (len(fita_saida) == error):
-        exit()
+        flag = True
+if flag:
+    exit()
 
 arq = open("tableSLR.csv", "r")
 arq = arq.readlines()
@@ -144,11 +146,12 @@ while (True):
     except:
         print("\"" + token + "\"", "não é conhecido. Compilação terminou.")
         break
-    transicao = slr[int(pilha[-1])+1][index]
-    # print(transicao)
-    # print(token)
-    # print(lista_tokens)
-    # print("\n")
+    try:
+        transicao = slr[int(pilha[-1])+1][index]
+    except:
+        print("\"" + pilha[-2] + "\"", "não contém um estado para transicionar. Transição caiu em local vazio da SLR.")
+        break
+
     if transicao == '':
         print("\"" + token + "\"", "caiu em local vazio da SLR, compilação terminada!")
         break
@@ -166,7 +169,11 @@ while (True):
                     pilha.pop(-1)
                 pilha.append(reduce[1])
                 index = slr[0].index(pilha[-1])
-                empilhado = slr[int(pilha[-2])+1][index]
+                try:
+                    empilhado = slr[int(pilha[-2])+1][index]
+                except:
+                    print("\"" + pilha[-2] + "\"", "não é uma transição válida!")
+                    exit()
                 pilha.append(empilhado)
                 break
 
